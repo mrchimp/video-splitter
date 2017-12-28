@@ -1,8 +1,8 @@
-# converter
+# Video Channel Splitter
 
-> Convert multichannel mkv videos to separate mp3 audio and mp4 video files.
+Separates audio and video channels from a single file to separate video and audio files.
 
-This whole program is essentially a replacement of these two commands:
+This whole program is essentially a replacement of these two commands, but slightly more flexible:
 
     ffprobe -show_entries stream=channels .\test.mkv
 
@@ -12,7 +12,21 @@ This whole program is essentially a replacement of these two commands:
       -map 0:a:0 %1.audio1.mp3 /
       -map 0:a:1 %1.audio2.mp3
 
-#### Build Setup
+## Installation & ffmpeg
+
+You will need to install [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html).
+
+## Limits
+
+ 1. The video channel will be exported to an mp4 container and maintain the original video codec.
+ 2. Audio channels will be converted to mp3.
+
+## Todo
+
+* Choosing which channels to export.
+* Choose output codecs
+
+## Build Setup
 
 ``` bash
 # install dependencies
