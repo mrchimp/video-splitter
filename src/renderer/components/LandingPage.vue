@@ -35,7 +35,7 @@
                 </tr>
               </table>
             </div>
-            <div class="has-text-danger" v-else>
+            <div class="has-text-danger" v-else-if="inputFile">
               No audio channels or no video channels found.
             </div>
           </section>
