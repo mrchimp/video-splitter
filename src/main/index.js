@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from 'electron' // eslint-disable-line
+import { app, BrowserWindow, ipcMain } from 'electron'; // eslint-disable-line
+import Converter from './Converter';
 
 /**
  * Set `__static` path to static files in production
@@ -9,14 +10,12 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow;
+
 const winURL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:9080'
   : `file://${__dirname}/index.html`;
 
 function createWindow() {
-  /**
-   * Initial window options
-   */
   mainWindow = new BrowserWindow({
     height: 563,
     useContentSize: true,
@@ -30,6 +29,14 @@ function createWindow() {
   });
 }
 
+const converter = new Converter();
+
+converter.onProgress = () => {
+  mainWindow.webContents.send('update-converter');
+};
+
+global.converter = converter;
+
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
@@ -42,6 +49,20 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('showFilePicker', () => {
+  converter.chooseInputFiles().then(() => {
+    mainWindow.webContents.send('update-converter');
+  });
+});
+
+ipcMain.on('reset', () => {
+  converter.reset();
+});
+
+ipcMain.on('start', () => {
+  converter.startConversions();
 });
 
 /**

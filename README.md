@@ -14,7 +14,10 @@ This whole program is essentially a replacement of these two commands, but sligh
 
 ## Installation & ffmpeg
 
-You will need to install [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html).
+You will need to install [ffmpeg and ffprobe](https://www.ffmpeg.org/download.html). The following files *must* exist:
+
+    C:\Program Files\ffmpeg\bin\ffmpeg.exe
+    C:\Program Files\ffmpeg\bin\ffprobe.exe
 
 ## Limits
 
@@ -26,7 +29,7 @@ You will need to install [ffmpeg and ffprobe](https://www.ffmpeg.org/download.ht
 * Choosing which channels to export.
 * Choose output codecs
 
-## Build Setup
+## Build Setup for Development
 
 ``` bash
 # install dependencies
@@ -37,7 +40,6 @@ npm run dev
 
 # build electron application for production
 npm run build
-
 
 # lint all JS/Vue component files in `src/`
 npm run lint
